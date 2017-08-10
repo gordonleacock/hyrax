@@ -51,9 +51,10 @@ module Hyrax
         case entity.workflow_state.name
         when 'pending_review'
           # notify the managers to review the deposit (CC depositors)
+          permissions = entity.workflow.permission_template
           {
-            to: entity.workflow.permission_template.agent_ids_for(access: 'manage',  agent_type: 'user'),
-            cc: entity.workflow.permission_template.agent_ids_for(access: 'deposit', agent_type: 'user')
+            'to' => permissions.agent_ids_for(access: 'manage',  agent_type: 'user'),
+            'cc' => permissions.agent_ids_for(access: 'deposit', agent_type: 'user')
           }
         else
           notification.recipients.each_with_object({}) do |r, h|

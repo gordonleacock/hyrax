@@ -58,7 +58,7 @@ RSpec.describe Hyrax::Workflow::NotificationService do
 
       it 'identifies the managers and depositor for notifications' do
         recipients = instance.recipients(notification)
-        expect(recipients).to eq(to: managers, cc: creator)
+        expect(recipients).to eq('to' => managers, 'cc' => creator)
       end
     end
   end
